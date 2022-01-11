@@ -17,27 +17,26 @@ using namespace cv;
 using namespace std;
 
 void my_mouse_callback(int event, int x, int y, int flags, void* param);
-int reading(char* Filename, char* imagename, double wl, double hl, double wr, double hr);
+int reading(string Filename, string imagename, double wl, double hl, double wr, double hr);
 void file();
 
 int main(int argc, char** argv) {
 	// устанвливаем русскую локаль для консоли
 	setlocale(LC_ALL, "Russian");
 	//file();
-	
-	char* imagename = "Dzerzhinsky.png";
-	char* traectory_file = "coordinat.txt";
+
+	const char* imagename = "Dzerzhinsky.png";
+	const char* traectory_file = "coordinat.txt";
 	double wl = 55.639799;
 	double hl = 37.828428;
 	double wr = 55.622020;
 	double hr = 37.873735;
-	reading(traectory_file, imagename, wl, hl, wr, hr);
-		
+	reading("coordinat.txt", "Dzerzhinsky.png", wl, hl, wr, hr);
+
 	/*Mat image = imread("Dzerzhinsky.png");
-	
+
 	namedWindow("modernGoogle");
 	setMouseCallback("modernGoogle", my_mouse_callback, &image);
-
 	while(true){
 		imshow("modernGoogle",image);
 		waitKey(30);}
@@ -51,27 +50,27 @@ void file()
 	unsigned long milliseconds_since_epoch = chrono::system_clock::now().time_since_epoch() / chrono::milliseconds(1);
 	file << milliseconds_since_epoch << endl;
 	file.close();
-	
+
 }
 
 void my_mouse_callback(int event, int x, int y, int flags, void* param)
 {
- if (event == EVENT_LBUTTONDOWN) 
-  {
-	Mat* pImage = (Mat*)param;
-	Mat image = *pImage;
-	circle(image, Point(x, y), 5, Scalar(255, 0, 0), FILLED, 8, 0);
-	ofstream file;
-	file.open("coordinat.txt", ios_base::app);
-	unsigned long milliseconds_since_epoch = chrono::system_clock::now().time_since_epoch() / chrono::milliseconds(1);
-	file << milliseconds_since_epoch << " " << x << " " << y << endl;
-	file.close();
-  }
+	if (event == EVENT_LBUTTONDOWN)
+	{
+		Mat* pImage = (Mat*)param;
+		Mat image = *pImage;
+		circle(image, Point(x, y), 5, Scalar(255, 0, 0), FILLED, 8, 0);
+		ofstream file;
+		file.open("coordinat.txt", ios_base::app);
+		unsigned long milliseconds_since_epoch = chrono::system_clock::now().time_since_epoch() / chrono::milliseconds(1);
+		file << milliseconds_since_epoch << " " << x << " " << y << endl;
+		file.close();
+	}
 }
 
-int reading(char* Filename, char* imagename, double wl, double hl, double wr, double hr)
+int reading(string Filename, string imagename, double wl, double hl, double wr, double hr)
 {
-	const char* File = Filename;
+	string File = Filename;
 	int x, y, xm, ym;
 	unsigned long t, tt;
 	long double shirota, dolgota;
@@ -115,3 +114,4 @@ int reading(char* Filename, char* imagename, double wl, double hl, double wr, do
 	cout << endl;
 	return 0;
 }
+
